@@ -1,6 +1,6 @@
 # CUDAExperiments
 
-Experiments with the CUDA platform.
+Experiments with CUDA.
 
 ## Usage
 
