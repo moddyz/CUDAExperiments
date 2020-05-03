@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.17)
 
 # Project Name
 project(
-  CMakeTemplate
+  CUDAExperiments
   VERSION 0.0
-  DESCRIPTION "Basic template for starting out a new CMake-based project."
-  LANGUAGES CXX
+  DESCRIPTION "Experiments with the CUDA platform."
+  LANGUAGES CXX CUDA
 )
 
 # Cross-platform compatibility.
@@ -25,9 +25,6 @@ endif()
 
 # Build targets.
 add_subdirectory(thirdparty)
-add_subdirectory(exampleProgram)
-add_subdirectory(exampleSharedLibrary)
-add_subdirectory(exampleStaticLibrary)
 
 # Install exported targets.
 export_project(${CMAKE_SOURCE_DIR}/cmake/Config.cmake.in)
