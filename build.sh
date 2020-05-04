@@ -6,6 +6,8 @@ mkdir -p build && cd build
 
 CMAKE_ARGS=\
 \ -DCMAKE_BUILD_TYPE="Debug"\
+\ -DCMAKE_CUDA_COMPILER="/usr/local/cuda/bin/nvcc"\
+\ -DBUILD_DOCUMENTATION="TRUE"\
 \ -DBUILD_TESTING="TRUE"
 
 # Only build if installation path not specified.

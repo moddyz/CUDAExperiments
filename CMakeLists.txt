@@ -8,6 +8,8 @@ project(
   LANGUAGES CXX CUDA
 )
 
+find_package(CUDAToolkit)
+
 # Cross-platform compatibility.
 if(UNIX AND NOT APPLE)
   set(LINUX TRUE)
@@ -23,8 +25,26 @@ if(BUILD_TESTING)
     list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
 endif()
 
+if(BUILD_DOCUMENTATION)
+
+    file(
+        COPY ${CMAKE_SOURCE_DIR}/README.md
+        DESTINATION ${CMAKE_BINARY_DIR}
+    )
+
+    doxygen_documentation(
+        doxygen_docs
+        GENERATE_TAGFILE TRUE
+        DOXYFILE ${CMAKE_SOURCE_DIR}/Doxyfile.in
+        INPUTS
+            ${CMAKE_SOURCE_DIR}/experiments
+    )
+endif()
+
 # Build targets.
 add_subdirectory(thirdparty)
+add_subdirectory(experiments)
 
 # Install exported targets.
-export_project(${CMAKE_SOURCE_DIR}/cmake/Config.cmake.in)
+# Disabled for now, until we have libraries to meaningfully export!
+# export_project(${CMAKE_SOURCE_DIR}/cmake/Config.cmake.in)
