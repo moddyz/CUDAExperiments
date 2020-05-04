@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.17)
 project(
   CUDAExperiments
   VERSION 0.0
-  DESCRIPTION "Experiments with the CUDA platform."
+  DESCRIPTION "Experiments with CUDA."
   LANGUAGES CXX CUDA
 )
 
