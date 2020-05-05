@@ -7,7 +7,7 @@
 
 int main()
 {
-    printf( "[queryDeviceProperties]\n\n" );
+    printf( "[cudaQueryDeviceProperties]\n\n" );
 
     int         deviceCount = 0;
     cudaError_t cudaErr     = cudaGetDeviceCount( &deviceCount );
@@ -16,7 +16,6 @@ int main()
         printf( "cudaGetDeviceCount returned %d\n-> %s\n",
                 static_cast< int >( cudaErr ),
                 cudaGetErrorString( cudaErr ) );
-        printf( "Result = FAIL\n" );
         exit( EXIT_FAILURE );
     }
 

@@ -37,12 +37,14 @@ if(BUILD_DOCUMENTATION)
         GENERATE_TAGFILE TRUE
         DOXYFILE ${CMAKE_SOURCE_DIR}/Doxyfile.in
         INPUTS
-            ${CMAKE_SOURCE_DIR}/experiments
+            ${CMAKE_CURRENT_SOURCE_DIR}/experiments
+            ${CMAKE_CURRENT_SOURCE_DIR}/utils
     )
 endif()
 
 # Build targets.
 add_subdirectory(thirdparty)
+add_subdirectory(utils)
 add_subdirectory(experiments)
 
 # Install exported targets.

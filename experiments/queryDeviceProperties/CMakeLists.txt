@@ -1,5 +1,5 @@
 cpp_program(
-    queryDeviceProperties
+    cudaQueryDeviceProperties
     LIBRARIES
         CUDA::cudart
     CPPFILES
