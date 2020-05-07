@@ -10,14 +10,14 @@
 /// \macro CUDA_CHECK_ERROR_CONTINUE
 ///
 /// Check the error status.  On non-success, log to stderr and continue exceution.
-#define CUDA_CHECK_ERROR_CONTINUE                                                                                      \
-    CUDAUtils::CheckError( ( val ), CUDAUtils::ErrorSeverity::Continue, #val, __FILE__, __LINE__ )
+#define CUDA_CHECK_ERROR_CONTINUE( val )                                                                               \
+    CUDAUtils::CheckError< CUDAUtils::ErrorSeverity::Continue >( ( val ), #val, __FILE__, __LINE__ )
 
 /// \macro CUDA_CHECK_ERROR_FATAL
 ///
 /// Check the error status.  On non-success, log to stderr and exit the program.
-#define CUDA_CHECK_ERROR_FATAL                                                                                         \
-    CUDAUtils::CheckError( ( val ), CUDAUtils::ErrorSeverity::Continue, #val, __FILE__, __LINE__ )
+#define CUDA_CHECK_ERROR_FATAL( val )                                                                                  \
+    CUDAUtils::CheckError< CUDAUtils::ErrorSeverity::Fatal >( ( val ), #val, __FILE__, __LINE__ )
 
 namespace CUDAUtils
 {
@@ -27,10 +27,11 @@ namespace CUDAUtils
 enum class ErrorSeverity : char
 {
     Continue = 0,
-    Fatal    = 1
+    Fatal = 1
 };
 
-void CheckError( cudaError_t i_error, ErrorSeverity i_severity, const char* i_function, const char* i_file, int i_line )
+template < ErrorSeverity ErrorSeverityValT >
+void CheckError( cudaError_t i_error, const char* i_function, const char* i_file, int i_line )
 {
     if ( i_error != cudaSuccess )
     {
@@ -42,11 +43,12 @@ void CheckError( cudaError_t i_error, ErrorSeverity i_severity, const char* i_fu
                  cudaGetErrorName( i_error ),
                  i_function );
 
-        constexpr if ( i_severity == ErrorSeverity::Fatal )
+        if constexpr ( ErrorSeverityT == ErrorSeverity::Fatal )
         {
             exit( EXIT_FAILURE );
         }
     }
+}
 
 } // namespace CUDAUtils
 
