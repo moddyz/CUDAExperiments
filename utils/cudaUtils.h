@@ -30,7 +30,7 @@ enum class ErrorSeverity : char
     Fatal = 1
 };
 
-template < ErrorSeverity ErrorSeverityValT >
+template < ErrorSeverity ErrorSeverityValue >
 void CheckError( cudaError_t i_error, const char* i_function, const char* i_file, int i_line )
 {
     if ( i_error != cudaSuccess )
@@ -43,7 +43,7 @@ void CheckError( cudaError_t i_error, const char* i_function, const char* i_file
                  cudaGetErrorName( i_error ),
                  i_function );
 
-        if constexpr ( ErrorSeverityT == ErrorSeverity::Fatal )
+        if constexpr ( ErrorSeverityValue == ErrorSeverity::Fatal )
         {
             exit( EXIT_FAILURE );
         }
