@@ -65,12 +65,23 @@ int main()
 
         printf( "\n" );
 
-        // Device features
+        //
+        // Device features (properties which don't really fit in other categories)
+        //
+
         printf( "  Device Features\n" );
 
         // ECC == Error-Correcting code memory.  It is a type of storage which can detect and correct most
         // common kinds of internal data corruption.
         printf( "    ECC Support:                                   %s\n", GetEnabledToken( deviceProp.ECCEnabled ) );
+
+        // Asynchronous engine count.
+        // This refers to the fact that there are 3 total copy engines - which means three concurrent copy
+        // operations can occur at once:
+        // - Host -> Device (upload)
+        // - Device -> Host (download)
+        // - Device -> Device via NVLINK
+        printf( "    Asynchronous Engine Count:                     %d\n", deviceProp.asyncEngineCount );
     }
 
     return EXIT_SUCCESS;
