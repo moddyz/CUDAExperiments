@@ -75,11 +75,14 @@ int main()
         // common kinds of internal data corruption.
         printf( "    ECC Support:                                   %s\n", GetEnabledToken( deviceProp.ECCEnabled ) );
 
-        // Asynchronous engine count.
-        // This refers to the fact that there are 3 total copy engines - which means three concurrent copy
-        // operations can occur at once:
+        // Asynchronous engine count.  I think this refers to the # of copy engines.
+        //
+        // For devices with 2 copy engines - which means two concurrent copy operations can overlap:
         // - Host -> Device (upload)
         // - Device -> Host (download)
+        //
+        // For devices with 3 copy engines - which means _three_ concurrent copy operations can overlap, with
+        // the third operation being a:
         // - Device -> Device via NVLINK
         printf( "    Asynchronous Engine Count:                     %d\n", deviceProp.asyncEngineCount );
     }
