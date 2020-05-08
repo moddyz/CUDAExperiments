@@ -1,12 +1,12 @@
 #pragma once
 
-#include <cuda_runtime.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 /// \file cudaUtils.h
 ///
 /// A set of useful utilities for CUDA programming.
+
+#include <cuda_runtime.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /// \macro CUDA_CHECK_ERROR_CONTINUE
 ///
