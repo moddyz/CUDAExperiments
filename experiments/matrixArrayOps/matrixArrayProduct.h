@@ -1,13 +1,16 @@
 #pragma once
 
-/// \file matrixArrayProduct.h
+/// \file matrixArrayOps/matrixArrayProduct.h
 ///
-/// Matrix array product
+/// Matrix array product (MAP)
 ///
 /// Element-wise multiplication of two arrays of 4 x 4 matrices (commonly used in computer graphics).
 
 #include "valueTypes.h"
 
-/// Naive implementation of MAP (matrix array product)
+/// CPU implementation of a MAP.
+void MatrixArrayProduct_CPU(  const Mat4f* i_matricesA, const Mat4f* i_matricesB, int i_numMatrices, Mat4f* o_matrices );
+
+/// Naive CUDA implementation of MAP.
 __global__ void
 MatrixArrayProduct_Naive( const Mat4f* i_matricesA, const Mat4f* i_matricesB, int i_numMatrices, Mat4f* o_matrices );
