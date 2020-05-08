@@ -1,0 +1,10 @@
+cpp_program(
+    cudaMatrixArrayOps
+    LIBRARIES
+        CUDA::cudart
+        cudaUtils
+        cxxopts
+    CPPFILES
+        matrixArrayProduct.cu
+        main.cpp
+)
