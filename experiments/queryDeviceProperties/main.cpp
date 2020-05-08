@@ -62,6 +62,10 @@ int main()
                 static_cast< float >( deviceProp.totalGlobalMem / ( /* MBytes -> Bytes */ 1024.0f * 1024.0f ) ) );
         printf( "    Total amount of constant memory:               %.0f Bytes\n",
                 static_cast< float >( deviceProp.totalConstMem ) );
+        printf( "    Memory Bus Width:                              %.0f Bytes\n",
+                static_cast< float >( deviceProp.memoryBusWidth / 8 /* Bits -> Bytes */ ) );
+        printf( "    Memory Clock Rate:                             %.0f KHz\n",
+                static_cast< float >( deviceProp.memoryClockRate ) );
 
         printf( "\n" );
 
