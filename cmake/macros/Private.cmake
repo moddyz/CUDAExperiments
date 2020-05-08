@@ -25,7 +25,7 @@ function(
         PRIVATE -g      # Include debug symbols.
                 -O3     # Highest degree of code optimisation.
                 -Wall   # Enable _all_ warnings.
-                -Werror # Error on compilation for warnings.
+                #-Werror # Error on compilation for warnings.
     )
 
     target_compile_features(${TARGET_NAME}
