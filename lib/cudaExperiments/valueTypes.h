@@ -2,10 +2,37 @@
 
 /// \file valueTypes.h
 
+#include <cassert>
 #include <sstream>
 #include <string>
 
 #include <cudaExperiments/math.h>
+
+/// \class Vec3f
+///
+/// 3-element floating point vector class.
+/// Useful for encoding vectors and points.
+class alignas( 16 ) Vec3f
+{
+public:
+    /// Element read-access.
+    inline __host__ __device__ const float& operator[]( size_t i_index ) const
+    {
+        return m_values[ i_index ];
+    }
+
+    /// Element write-access.
+    inline __host__ __device__ float& operator[]( size_t i_index )
+    {
+        return m_values[ i_index ];
+    }
+
+private:
+    float m_values[ 3 ] = {0};
+    float m_padding[ 1 ] = {0};
+};
+
+static_assert( sizeof( Vec3f ) == 16 );
 
 /// \class Mat4f
 ///
@@ -91,7 +118,9 @@ private:
     float m_values[ 16 ] = {0};
 };
 
-/// Compute the product of two matrices.
+static_assert( sizeof( Vec3f ) == 16 );
+
+/// Compute the product of two matrices: \p i_lhs * \p i_rhs.
 ///
 /// \param i_lhs left hand side matrix.
 /// \param i_rhs right hand side matrix.
