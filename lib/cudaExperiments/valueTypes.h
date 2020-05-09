@@ -1,11 +1,11 @@
 #pragma once
 
-/// \file matrixArrayOps/valueTypes.h
+/// \file valueTypes.h
 
 #include <sstream>
 #include <string>
 
-#include <mathUtils.h>
+#include <cudaExperiments/math.h>
 
 /// \class Mat4f
 ///

@@ -1,9 +1,11 @@
 cpp_program(
-    cudaMatrixArrayOps
+    cudaMatrixArrayProduct
+
     LIBRARIES
         CUDA::cudart
-        cudaUtils
+        cudaExperiments
         cxxopts
+
     CPPFILES
         matrixArrayProduct.cu
         main.cpp

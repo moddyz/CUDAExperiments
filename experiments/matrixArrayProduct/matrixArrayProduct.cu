@@ -1,4 +1,4 @@
-#include "valueTypes.h"
+#include <cudaExperiments/valueTypes.h>
 
 #include <stdio.h>
 

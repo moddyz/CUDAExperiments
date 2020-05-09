@@ -44,7 +44,7 @@ endif()
 
 # Build targets.
 add_subdirectory(thirdparty)
-add_subdirectory(utils)
+add_subdirectory(lib)
 add_subdirectory(experiments)
 
 # Install exported targets.

@@ -6,7 +6,7 @@
 ///
 /// Element-wise multiplication of two arrays of 4 x 4 matrices (commonly used in computer graphics).
 
-#include "valueTypes.h"
+class Mat4f;
 
 /// CPU implementation of a MAP.
 void MatrixArrayProduct_CPU(  const Mat4f* i_matricesA, const Mat4f* i_matricesB, int i_numMatrices, Mat4f* o_matrices );

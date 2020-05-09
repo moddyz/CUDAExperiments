@@ -3,10 +3,12 @@
 
 // Relative.
 #include "matrixArrayProduct.h"
-#include "valueTypes.h"
 
-// Utils.
-#include <cudaUtils.h>
+// Local tools.
+#include <cudaExperiments/error.h>
+#include <cudaExperiments/performance.h>
+#include <cudaExperiments/math.h>
+#include <cudaExperiments/valueTypes.h>
 
 // Thirdparty.
 #include <cxxopts.hpp>

@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file mathUtils.h
+/// \file math.h
 ///
 /// A set of useful math utilities.
 
@@ -10,7 +10,8 @@
 ///
 /// \tparam ValueT type of the scalar values.
 template < typename ValueT >
-bool AlmostEqual( const ValueT& i_valueA, const ValueT& i_valueB, const ValueT& i_threshold = 0.0001 )
+__host__ __device__ bool
+AlmostEqual( const ValueT& i_valueA, const ValueT& i_valueB, const ValueT& i_threshold = 0.0001 )
 {
     return std::abs( i_valueA - i_valueB ) < i_threshold;
 }
