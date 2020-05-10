@@ -48,7 +48,7 @@ int main( int i_argc, char** i_argv )
         params.block.x = 256;
         params.grid.x  = ( arraySize + params.block.x - 1 ) / params.block.x;
         params.args    = {&arraySize, &arrayADevice, &arrayBDevice};
-        CudaKernelBenchmark( params, /* bytesRead */ numBytes * 2, /* bytesWritten */ numBytes );
+        CudaKernelBenchmark( params, /* bytesRead */ numBytes, /* bytesWritten */ numBytes );
     }
 
     // Download computed matrices, and verify against CPU results.
