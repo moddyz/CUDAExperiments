@@ -8,13 +8,16 @@
 #include <cudaExperiments/error.h>
 #include <cudaExperiments/math.h>
 #include <cudaExperiments/performance.h>
-#include <cudaExperiments/valueTypes.h>
+
+// GraphicsMath.
+#include <gm/functions/matrixProduct.h>
+#include <gm/functions/setIdentity.h>
 
 // Thirdparty.
 #include <cxxopts.hpp>
 
 /// Helper function for setting a value \p i_matrix for \p i_arraySize elements in \p o_matrices.
-void SetMatrixArrayValue( const Mat4f& i_matrix, int i_arraySize, Mat4f* o_matrices )
+void SetMatrixArrayValue( const gm::Mat4f& i_matrix, int i_arraySize, gm::Mat4f* o_matrices )
 {
     for ( int matrixIndex = 0; matrixIndex < i_arraySize; ++matrixIndex )
     {
@@ -23,7 +26,7 @@ void SetMatrixArrayValue( const Mat4f& i_matrix, int i_arraySize, Mat4f* o_matri
 }
 
 /// Helper function for checking that all the values in the two matrices arrays are equal.
-void CheckMatrixArrays( const Mat4f* i_matrixA, const Mat4f* i_matrixB, int i_arraySize )
+void CheckMatrixArrays( const gm::Mat4f* i_matrixA, const gm::Mat4f* i_matrixB, int i_arraySize )
 {
     for ( int matrixIndex = 0; matrixIndex < i_arraySize; ++matrixIndex )
     {
@@ -50,28 +53,30 @@ int main( int i_argc, char** i_argv )
     int  arraySize = result[ "arraySize" ].as< int >();
 
     // Compute amount of memory to allocate.
-    size_t numBytes = arraySize * sizeof( Mat4f );
+    size_t numBytes = arraySize * sizeof( gm::Mat4f );
 
     // Print current device perf attributes.
     CudaPrintDevicePerformanceAttributes();
 
     // Allocate host memory.
-    Mat4f* matricesA   = ( Mat4f* ) malloc( numBytes );
-    Mat4f* matricesB   = ( Mat4f* ) malloc( numBytes );
-    Mat4f* matricesC   = ( Mat4f* ) malloc( numBytes );
-    Mat4f* matricesRef = ( Mat4f* ) malloc( numBytes );
+    gm::Mat4f* matricesA   = ( gm::Mat4f* ) malloc( numBytes );
+    gm::Mat4f* matricesB   = ( gm::Mat4f* ) malloc( numBytes );
+    gm::Mat4f* matricesC   = ( gm::Mat4f* ) malloc( numBytes );
+    gm::Mat4f* matricesRef = ( gm::Mat4f* ) malloc( numBytes );
 
     // Set host values.
-    SetMatrixArrayValue( Mat4f::Identity(), arraySize, matricesA );
-    SetMatrixArrayValue( Mat4f::Identity(), arraySize, matricesB );
+    gm::Mat4f identity;
+    gm::SetIdentity( identity );
+    SetMatrixArrayValue( identity, arraySize, matricesA );
+    SetMatrixArrayValue( identity, arraySize, matricesB );
 
     // Compute CPU output.
     MatrixArrayProduct_CPU( matricesA, matricesB, arraySize, matricesRef );
 
     // Allocate device memory.
-    Mat4f* matricesADevice;
-    Mat4f* matricesBDevice;
-    Mat4f* matricesCDevice;
+    gm::Mat4f* matricesADevice;
+    gm::Mat4f* matricesBDevice;
+    gm::Mat4f* matricesCDevice;
     CUDA_CHECK_ERROR_FATAL( cudaMalloc( ( void** ) &matricesADevice, numBytes ) );
     CUDA_CHECK_ERROR_FATAL( cudaMalloc( ( void** ) &matricesBDevice, numBytes ) );
     CUDA_CHECK_ERROR_FATAL( cudaMalloc( ( void** ) &matricesCDevice, numBytes ) );
