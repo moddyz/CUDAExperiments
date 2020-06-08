@@ -6,7 +6,6 @@
 
 // Local tools.
 #include <cudaExperiments/error.h>
-#include <cudaExperiments/math.h>
 #include <cudaExperiments/performance.h>
 
 // Thirdparty.
