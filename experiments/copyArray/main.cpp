@@ -32,12 +32,12 @@ int main( int i_argc, char** i_argv )
     // Allocate device memory.
     float* arrayADevice;
     float* arrayBDevice;
-    CUDA_CHECK_ERROR_FATAL( cudaMalloc( ( void** ) &arrayADevice, numBytes ) );
-    CUDA_CHECK_ERROR_FATAL( cudaMalloc( ( void** ) &arrayBDevice, numBytes ) );
+    CUDA_ERROR_FATAL( cudaMalloc( ( void** ) &arrayADevice, numBytes ) );
+    CUDA_ERROR_FATAL( cudaMalloc( ( void** ) &arrayBDevice, numBytes ) );
 
     // Upload host memory -> device.
-    CUDA_CHECK_ERROR_FATAL( cudaMemcpy( /*dst*/ arrayADevice, /*src*/ arrayA, numBytes, cudaMemcpyHostToDevice ) );
-    CUDA_CHECK_ERROR_FATAL( cudaMemcpy( /*dst*/ arrayBDevice, /*src*/ arrayB, numBytes, cudaMemcpyHostToDevice ) );
+    CUDA_ERROR_FATAL( cudaMemcpy( /*dst*/ arrayADevice, /*src*/ arrayA, numBytes, cudaMemcpyHostToDevice ) );
+    CUDA_ERROR_FATAL( cudaMemcpy( /*dst*/ arrayBDevice, /*src*/ arrayB, numBytes, cudaMemcpyHostToDevice ) );
 
     // Compute grid & block size based on array size.
     {
@@ -51,5 +51,5 @@ int main( int i_argc, char** i_argv )
     }
 
     // Download computed matrices, and verify against CPU results.
-    CUDA_CHECK_ERROR_FATAL( cudaMemcpy( /*dst*/ arrayB, /*src*/ arrayBDevice, numBytes, cudaMemcpyDeviceToHost ) );
+    CUDA_ERROR_FATAL( cudaMemcpy( /*dst*/ arrayB, /*src*/ arrayBDevice, numBytes, cudaMemcpyDeviceToHost ) );
 }

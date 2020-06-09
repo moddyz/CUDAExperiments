@@ -18,7 +18,7 @@ int main()
     printf( "[cudaQueryDeviceProperties]\n" );
 
     int deviceCount = 0;
-    CUDA_CHECK_ERROR_FATAL( cudaGetDeviceCount( &deviceCount ) );
+    CUDA_ERROR_FATAL( cudaGetDeviceCount( &deviceCount ) );
 
     // Iterate over each device and query their properties.
     for ( int deviceIndex = 0; deviceIndex < deviceCount; ++deviceIndex )

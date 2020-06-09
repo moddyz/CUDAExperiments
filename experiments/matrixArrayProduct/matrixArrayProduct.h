@@ -12,8 +12,13 @@ class Mat4f;
 }
 
 /// CPU implementation of a MAP.
-void MatrixArrayProduct_CPU(  const gm::Mat4f* i_matricesA, const gm::Mat4f* i_matricesB, int i_numMatrices, gm::Mat4f* o_matrices );
+void MatrixArrayProduct_CPU( const gm::Mat4f* i_matricesA,
+                             const gm::Mat4f* i_matricesB,
+                             int              i_numMatrices,
+                             gm::Mat4f*       o_matrices );
 
 /// Naive CUDA implementation of MAP.
-__global__ void
-MatrixArrayProduct_Naive( const gm::Mat4f* i_matricesA, const gm::Mat4f* i_matricesB, int i_numMatrices, gm::Mat4f* o_matrices );
+__global__ void MatrixArrayProduct_Naive( const gm::Mat4f* i_matricesA,
+                                          const gm::Mat4f* i_matricesB,
+                                          int              i_numMatrices,
+                                          gm::Mat4f*       o_matrices );

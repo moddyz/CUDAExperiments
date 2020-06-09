@@ -11,4 +11,3 @@ __global__ void CopyArray( size_t i_size, const float* i_src, float* o_dst )
 
     o_dst[ arrayIndex ] = i_src[ arrayIndex ];
 }
-

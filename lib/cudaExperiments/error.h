@@ -8,16 +8,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/// \macro CUDA_CHECK_ERROR_CONTINUE
+/// \macro CUDA_ERROR_CONTINUE
 ///
 /// Check the error status.  On non-success, log to stderr and continue exceution.
-#define CUDA_CHECK_ERROR_CONTINUE( val )                                                                               \
-    CudaCheckError< CudaErrorSeverity::Continue >( ( val ), #val, __FILE__, __LINE__ )
+#define CUDA_ERROR_CONTINUE( val ) CudaCheckError< CudaErrorSeverity::Continue >( ( val ), #val, __FILE__, __LINE__ )
 
-/// \macro CUDA_CHECK_ERROR_FATAL
+/// \macro CUDA_ERROR_FATAL
 ///
 /// Check the error status.  On non-success, log to stderr and exit the program.
-#define CUDA_CHECK_ERROR_FATAL( val ) CudaCheckError< CudaErrorSeverity::Fatal >( ( val ), #val, __FILE__, __LINE__ )
+#define CUDA_ERROR_FATAL( val ) CudaCheckError< CudaErrorSeverity::Fatal >( ( val ), #val, __FILE__, __LINE__ )
 
 /// \enum CudaErrorSeverity
 ///
@@ -25,10 +24,10 @@
 enum class CudaErrorSeverity : char
 {
     Continue = 0,
-    Fatal = 1
+    Fatal    = 1
 };
 
-/// Not intended to be used directly - use \ref CUDA_CHECK_ERROR_FATAL and \ref CUDA_CHECK_ERROR_CONTINUE instead.
+/// Not intended to be used directly - use \ref CUDA_ERROR_FATAL and \ref CUDA_ERROR_CONTINUE instead.
 template < CudaErrorSeverity ErrorSeverityValue >
 void CudaCheckError( cudaError_t i_error, const char* i_function, const char* i_file, int i_line )
 {
