@@ -30,14 +30,20 @@ inline double CudaComputeTheoreticalMemoryBandwidth()
 }
 
 /// Compute the effective memory bandwidth, based on the number of bytes read \p i_numBytesRead and written to \p
-/// i_numBytesRead, and elapsed kernel time \p i_msElapsed.
+/// i_numBytesRead, and elapsed time \p i_msElapsed.
 ///
 /// \return bandwidth in units of gigabytes per second.
 inline double CudaComputeEffectiveMemoryBandwidth( size_t i_numBytesRead, size_t i_numBytesWritten, double i_msElapsed )
 {
+    // Unit conversion constants.
+    constexpr double secondsPerMillisecond = 1e-3;
+    constexpr double bytesPerGigabyte      = 1e9;
+
+    // Effective bandwidth is bytes read and written divided by time.
     double bytesPerSecond =
-        ( ( double ) ( i_numBytesRead + i_numBytesWritten ) ) / ( /* Milliseconds -> Seconds */ i_msElapsed * 1e-3 );
-    return bytesPerSecond / 1e9;
+        ( ( double ) ( i_numBytesRead + i_numBytesWritten ) ) / ( i_msElapsed * secondsPerMillisecond );
+
+    return bytesPerSecond / bytesPerGigabyte;
 }
 
 /// Prints performance attributes specific to the current CUDA device.
