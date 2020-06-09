@@ -15,7 +15,7 @@ int main( int i_argc, char** i_argv )
 {
     // Parse command line arguments.
     cxxopts::Options options( "cudaCopyArray", "Baseline test for a simple array copy kernel." );
-    options.add_options()( "n,arraySize", "Size of array.", cxxopts::value< int >()->default_value( "10000" ) );
+    options.add_options()( "n,arraySize", "Size of array.", cxxopts::value< int >()->default_value( "100000" ) );
     auto result    = options.parse( i_argc, i_argv );
     int  arraySize = result[ "arraySize" ].as< int >();
 

@@ -6,6 +6,7 @@
 
 #include <cudaExperiments/error.h>
 
+#include <limits>
 #include <vector>
 
 /// Compute the theoretical memory bandwidth of the current CUDA device.
@@ -70,34 +71,56 @@ struct CudaKernelLaunchParams
 /// \param i_kernelParams cuda kernel launch parameters.
 /// \param i_numBytesRead number of bytes of memory read in the kernel, used for computing effective bandwidth.
 /// \param i_numBytesWritten number of bytes of memory written in the kernel, used for computing effective bandwidth.
-inline void
-CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams, size_t i_numBytesRead, size_t i_numBytesWritten )
+/// \param i_numIterations number of iterations to execute the kernel, for aggregation of timings.
+inline void CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams,
+                                 size_t                  i_numBytesRead,
+                                 size_t                  i_numBytesWritten,
+                                 size_t                  i_numIterations = 100 )
 {
+    double totalElapsed = 0.0;
+    double minElapsed   = std::numeric_limits< double >::max();
+    double maxElapsed   = std::numeric_limits< double >::min();
+
     // Create events for timings.
-    cudaEvent_t start, stop;
-    CUDA_CHECK_ERROR_FATAL( cudaEventCreate( &start ) );
-    CUDA_CHECK_ERROR_FATAL( cudaEventCreate( &stop ) );
+    for ( size_t i = 0; i < i_numIterations; ++i )
+    {
+        cudaEvent_t start, stop;
+        CUDA_CHECK_ERROR_FATAL( cudaEventCreate( &start ) );
+        CUDA_CHECK_ERROR_FATAL( cudaEventCreate( &stop ) );
 
-    // Start timer.
-    CUDA_CHECK_ERROR_FATAL( cudaEventRecord( start, 0 ) );
+        // Start timer.
+        CUDA_CHECK_ERROR_FATAL( cudaEventRecord( start, 0 ) );
 
-    // Execute kernel.
-    CUDA_CHECK_ERROR_FATAL( cudaLaunchKernel( i_kernelParams.kernel,
-                                              i_kernelParams.grid,
-                                              i_kernelParams.block,
-                                              i_kernelParams.args.data(),
-                                              0,
-                                              nullptr ) );
+        // Execute kernel.
+        CUDA_CHECK_ERROR_FATAL( cudaLaunchKernel( i_kernelParams.kernel,
+                                                  i_kernelParams.grid,
+                                                  i_kernelParams.block,
+                                                  i_kernelParams.args.data(),
+                                                  0,
+                                                  nullptr ) );
 
-    // Stop timer, and get elapsed time in milliseconds.
-    CUDA_CHECK_ERROR_FATAL( cudaEventRecord( stop, 0 ) );
-    CUDA_CHECK_ERROR_FATAL( cudaEventSynchronize( stop ) );
-    float elapsedMs;
-    CUDA_CHECK_ERROR_FATAL( cudaEventElapsedTime( &elapsedMs, start, stop ) );
+        // Stop timer, and get elapsed time in milliseconds.
+        CUDA_CHECK_ERROR_FATAL( cudaEventRecord( stop, 0 ) );
+        CUDA_CHECK_ERROR_FATAL( cudaEventSynchronize( stop ) );
+        float elapsedMs;
+        CUDA_CHECK_ERROR_FATAL( cudaEventElapsedTime( &elapsedMs, start, stop ) );
+
+        // Update total, min, & max elapsed times.
+        totalElapsed += elapsedMs;
+        minElapsed = std::min( minElapsed, ( double ) elapsedMs );
+        maxElapsed = std::max( maxElapsed, ( double ) elapsedMs );
+    }
+
+    // Compute the average.
+    double averageElapsed = totalElapsed / ( double ) i_numIterations;
 
     // Print results.
     printf( "<<< Kernel Benchmark \"%s\" >>>\n", i_kernelParams.name );
-    printf( "   Elapsed time:                           %f ms\n", elapsedMs );
-    printf( "   Effective Bandwidth:                    %f GB/s\n",
-            CudaComputeEffectiveMemoryBandwidth( i_numBytesRead, i_numBytesWritten, elapsedMs ) );
+    printf( "   Number of iterations:                   %i\n", i_numIterations );
+    printf( "   Total elapsed time:                     %f ms\n", totalElapsed );
+    printf( "   Average elapsed time:                   %f ms\n", averageElapsed );
+    printf( "   Min elapsed time:                       %f ms\n", minElapsed );
+    printf( "   Max elapsed time:                       %f ms\n", maxElapsed );
+    printf( "   Average effective bandwidth:            %f GB/s\n",
+            CudaComputeEffectiveMemoryBandwidth( i_numBytesRead, i_numBytesWritten, averageElapsed ) );
 }
