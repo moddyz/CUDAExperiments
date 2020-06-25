@@ -5,8 +5,8 @@
 #include "matrixArrayProduct.h"
 
 // Local tools.
-#include <cudaExperiments/error.h>
-#include <cudaExperiments/performance.h>
+#include <cubase/error.h>
+#include <cubase/performance.h>
 
 // GraphicsMath.
 #include <gm/functions/matrixProduct.h>

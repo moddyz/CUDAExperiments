@@ -4,7 +4,7 @@
 ///
 /// A set tools for computing performance metrics in CUDA programming.
 
-#include <cudaExperiments/error.h>
+#include <cubase/error.h>
 
 #include <limits>
 #include <vector>

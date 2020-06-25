@@ -3,7 +3,7 @@ cpp_program(
 
     LIBRARIES
         CUDA::cudart
-        cudaExperiments
+        cubase
         cxxopts
 
     CPPFILES

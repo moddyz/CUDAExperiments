@@ -4,7 +4,7 @@
 
 #include <cuda_runtime.h>
 
-#include <cudaExperiments/error.h>
+#include <cubase/error.h>
 
 /// Utility program for querying available CUDA devices, and their respective properties.
 

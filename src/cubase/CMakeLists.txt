@@ -1,6 +1,6 @@
 # Header only library
 
-set(LIBRARY_NAME "cudaExperiments")
+set(LIBRARY_NAME "cubase")
 add_library(
     ${LIBRARY_NAME}
     IMPORTED  # This is external.
@@ -14,8 +14,6 @@ file(
     DESTINATION ${CMAKE_BINARY_DIR}/include/${LIBRARY_NAME}
 )
 
-# Any target which links against "cudaCommon" will inherit
-# CUDACOMMON_INCLUDE_DIR as a compilation include directory.
 target_include_directories(
     ${LIBRARY_NAME}
     INTERFACE

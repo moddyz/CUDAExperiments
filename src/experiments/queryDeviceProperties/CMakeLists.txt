@@ -2,7 +2,7 @@ cpp_program(
     cudaQueryDeviceProperties
     LIBRARIES
         CUDA::cudart
-        cudaExperiments
+        cubase
     CPPFILES
         main.cpp
 )

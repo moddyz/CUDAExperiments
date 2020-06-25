@@ -5,8 +5,8 @@
 #include "copyArray.h"
 
 // Local tools.
-#include <cudaExperiments/error.h>
-#include <cudaExperiments/performance.h>
+#include <cubase/error.h>
+#include <cubase/performance.h>
 
 // Thirdparty.
 #include <cxxopts.hpp>

@@ -37,15 +37,13 @@ if(BUILD_DOCUMENTATION)
         GENERATE_TAGFILE TRUE
         DOXYFILE ${CMAKE_SOURCE_DIR}/Doxyfile.in
         INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/experiments
-            ${CMAKE_CURRENT_SOURCE_DIR}/utils
+            ${CMAKE_CURRENT_SOURCE_DIR}/src
     )
 endif()
 
 # Build targets.
 add_subdirectory(thirdparty)
-add_subdirectory(lib)
-add_subdirectory(experiments)
+add_subdirectory(src)
 
 # Install exported targets.
 # Disabled for now, until we have libraries to meaningfully export!
