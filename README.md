@@ -9,8 +9,6 @@ Experiments with NVIDIA's CUDA API.
   - [Requirements](#requirements)
 - [Build Status](#build-status)
 
-See [cmake/macros/Public.cmake](cmake/macros/Public.cmake) for the full listing.
-
 ## Documentation
 
 Documentation based on the latest state of master, [hosted by GitHub Pages](https://moddyz.github.io/CUDAExperiments/).
