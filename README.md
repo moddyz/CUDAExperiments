@@ -1,33 +1,35 @@
-# CUDAExperiments
+![Build and test](https://github.com/moddyz/CUDASandbox/workflows/Build%20and%20test/badge.svg)
 
-Experiments with NVIDIA's CUDA API.
+# CUDASandbox
+
+Experimentation with NVIDIA's CUDA API.
 
 ## Table of Contents
 
-- [Documentation](#documentation)
+- [Dependencies](#dependencies)
 - [Building](#building)
-  - [Requirements](#requirements)
-- [Build Status](#build-status)
 
-## Documentation
+### Dependencies
 
-Documentation based on the latest state of master, [hosted by GitHub Pages](https://moddyz.github.io/CUDAExperiments/).
+The following dependencies are mandatory:
+- C++ compiler (C++17)
+- [CMake](https://cmake.org/documentation/) (>=3.12)
+- [CUDA](https://developer.nvidia.com/cuda-toolkit) (>=10)
 
-## Building
+### Building
 
-A convenience build script is also provided, for building all targets, and optionally installing to a location:
+Example snippet for building this project:
 ```
-./build.sh <OPTIONAL_INSTALL_LOCATION>
+mkdir build && cd build
+cmake \
+  -DCMAKE_CUDA_COMPILER="/usr/local/cuda/bin/nvcc" \
+  -DCMAKE_INSTALL_PREFIX="/apps/CUDASandbox/" \
+  ..
+cmake --build  . -- VERBOSE=1 -j8 all test install
 ```
 
-### Requirements
+CMake options for configuring this project:
 
-- `>= CMake-3.17`
-- `>= C++17`
-- `>= CUDA 10`
-
-## Build Status
-
-|       | master | 
-| ----- | ------ | 
-| macOS-10.14 | [![Build Status](https://travis-ci.com/moddyz/CUDAExperiments.svg?branch=master)](https://travis-ci.com/moddyz/CUDAExperiments) |
+| CMake Variable name     | Description                                                            | Default |
+| ----------------------- | ---------------------------------------------------------------------- | ------- |
+| `BUILD_TESTING`         | Enable automated testing.                                              | `OFF`   |

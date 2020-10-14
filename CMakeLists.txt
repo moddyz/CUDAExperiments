@@ -2,52 +2,23 @@ cmake_minimum_required(VERSION 3.17)
 
 # Project Name
 project(
-  CUDAExperiments
-  VERSION 0.0
-  DESCRIPTION "Experiments with CUDA."
-  LANGUAGES CXX CUDA
+    CUDASandbox
+    VERSION 0.0
+    DESCRIPTION "Experimentation with CUDA."
+    LANGUAGES CXX CUDA
 )
 
-find_package(CUDAToolkit)
+# Set module search paths.
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/tools)
+include(Options)
+include(Packages)
+include(Tools)
+include(Defaults)
 
-# Cross-platform compatibility.
-if(UNIX AND NOT APPLE)
-  set(LINUX TRUE)
-endif()
-
-# Discover macros.
-list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_SOURCE_DIR}/cmake/macros")
-include(Public)
-
-# Testing.
-if(BUILD_TESTING)
-    enable_testing()
-    list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
-endif()
-
-if(BUILD_DOCUMENTATION)
-
-    file(
-        COPY ${CMAKE_SOURCE_DIR}/README.md
-        DESTINATION ${CMAKE_BINARY_DIR}
-    )
-
-    doxygen_documentation(
-        doxygen_docs
-        GENERATE_TAGFILE
-            TRUE
-        DOXYFILE
-            ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in
-        INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/src
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/cubase
-    )
-endif()
-
-# Build targets.
+# Import third party libraries.
 add_subdirectory(thirdparty)
-add_subdirectory(src)
 
-# Install exported targets.
-# Disabled for now, until we have libraries to meaningfully export!
-# export_project(${CMAKE_SOURCE_DIR}/cmake/Config.cmake.in)
+# Build source code.
+add_subdirectory(src)

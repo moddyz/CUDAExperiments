@@ -1,4 +1,4 @@
-cpp_program(
+cpp_executable(
     cudaQueryDeviceProperties
     LIBRARIES
         CUDA::cudart
