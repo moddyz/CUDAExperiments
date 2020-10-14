@@ -186,7 +186,7 @@ function(
     )
 
     target_compile_features(${TARGET}
-        PRIVATE cxx_std_11
+        PRIVATE cxx_std_17
     )
 
     # Set-up include paths.
