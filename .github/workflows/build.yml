@@ -29,7 +29,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Install dependencies (Linux)
-        run: sudo apt-get install cmake cuda
+        run: |
+          sudo add-apt-repository ppa:graphics-drivers/ppa
+          sudo apt-get update
+          sudo apt-get install cmake cuda-10.0
       - uses: actions/checkout@v2
       - name: Create build directories
         run: |
