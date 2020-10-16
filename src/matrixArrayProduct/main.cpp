@@ -5,8 +5,8 @@
 #include "matrixArrayProduct.h"
 
 // Local tools.
-#include <cubase/error.h>
-#include <cubase/performance.h>
+#include <cudaTools/error.h>
+#include <cudaTools/performance.h>
 
 // GraphicsMath.
 #include <gm/functions/matrixProduct.h>
@@ -76,13 +76,13 @@ int main( int i_argc, char** i_argv )
     gm::Mat4f* matricesADevice;
     gm::Mat4f* matricesBDevice;
     gm::Mat4f* matricesCDevice;
-    CUDA_ERROR_FATAL( cudaMalloc( ( void** ) &matricesADevice, numBytes ) );
-    CUDA_ERROR_FATAL( cudaMalloc( ( void** ) &matricesBDevice, numBytes ) );
-    CUDA_ERROR_FATAL( cudaMalloc( ( void** ) &matricesCDevice, numBytes ) );
+    CUDA_CHECK( cudaMalloc( ( void** ) &matricesADevice, numBytes ) );
+    CUDA_CHECK( cudaMalloc( ( void** ) &matricesBDevice, numBytes ) );
+    CUDA_CHECK( cudaMalloc( ( void** ) &matricesCDevice, numBytes ) );
 
     // Upload host memory -> device.
-    CUDA_ERROR_FATAL( cudaMemcpy( /*dst*/ matricesADevice, /*src*/ matricesA, numBytes, cudaMemcpyHostToDevice ) );
-    CUDA_ERROR_FATAL( cudaMemcpy( /*dst*/ matricesBDevice, /*src*/ matricesB, numBytes, cudaMemcpyHostToDevice ) );
+    CUDA_CHECK( cudaMemcpy( /*dst*/ matricesADevice, /*src*/ matricesA, numBytes, cudaMemcpyHostToDevice ) );
+    CUDA_CHECK( cudaMemcpy( /*dst*/ matricesBDevice, /*src*/ matricesB, numBytes, cudaMemcpyHostToDevice ) );
 
     // Compute grid & block size based on array size.
     {
@@ -96,6 +96,6 @@ int main( int i_argc, char** i_argv )
     }
 
     // Download computed matrices, and verify against CPU results.
-    CUDA_ERROR_FATAL( cudaMemcpy( /*dst*/ matricesC, /*src*/ matricesCDevice, numBytes, cudaMemcpyDeviceToHost ) );
+    CUDA_CHECK( cudaMemcpy( /*dst*/ matricesC, /*src*/ matricesCDevice, numBytes, cudaMemcpyDeviceToHost ) );
     CheckMatrixArrays( matricesC, matricesRef, arraySize );
 }

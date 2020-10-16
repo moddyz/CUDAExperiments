@@ -1,9 +1,8 @@
-cpp_executable(
-    cudaCopyArray
+cpp_executable(${EXECUTABLE_PREFIX}_copyArray
 
     LIBRARIES
         CUDA::cudart
-        cubase
+        cudaTools
         cxxopts
 
     CPPFILES

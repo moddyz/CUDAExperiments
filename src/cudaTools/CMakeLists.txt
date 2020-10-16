@@ -1,6 +1,6 @@
 # Header only library
 
-set(LIBRARY_NAME "cubase")
+set(LIBRARY_NAME "cudaTools")
 add_library(
     ${LIBRARY_NAME}
     IMPORTED  # This is external.
