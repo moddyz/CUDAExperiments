@@ -2,7 +2,7 @@
 
 # CUDASandbox
 
-Experimentation with NVIDIA's CUDA API.
+Sandbox for experiments with NVIDIA's CUDA API.
 
 ## Table of Contents
 
