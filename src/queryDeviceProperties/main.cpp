@@ -4,7 +4,7 @@
 
 #include <cuda_runtime.h>
 
-#include <cubase/error.h>
+#include <cudaTools/error.h>
 
 /// Utility program for querying available CUDA devices, and their respective properties.
 
@@ -18,7 +18,7 @@ int main()
     printf( "[cudaQueryDeviceProperties]\n" );
 
     int deviceCount = 0;
-    CUDA_ERROR_FATAL( cudaGetDeviceCount( &deviceCount ) );
+    CUDA_CHECK( cudaGetDeviceCount( &deviceCount ) );
 
     // Iterate over each device and query their properties.
     for ( int deviceIndex = 0; deviceIndex < deviceCount; ++deviceIndex )

@@ -25,7 +25,7 @@ cmake \
   -DCMAKE_CUDA_COMPILER="/usr/local/cuda/bin/nvcc" \
   -DCMAKE_INSTALL_PREFIX="/apps/CUDASandbox/" \
   ..
-cmake --build  . -- VERBOSE=1 -j8 all test install
+cmake --build  . -- VERBOSE=1 -j8 install
 ```
 
 CMake options for configuring this project:

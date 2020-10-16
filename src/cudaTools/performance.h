@@ -4,7 +4,7 @@
 ///
 /// A set tools for computing performance metrics in CUDA programming.
 
-#include <cubase/error.h>
+#include <cudaTools/error.h>
 
 #include <limits>
 #include <vector>
@@ -16,10 +16,10 @@
 inline double CudaComputeTheoreticalMemoryBandwidth()
 {
     int currentDeviceIndex;
-    CUDA_ERROR_FATAL( cudaGetDevice( &currentDeviceIndex ) );
+    CUDA_CHECK( cudaGetDevice( &currentDeviceIndex ) );
 
     cudaDeviceProp deviceProp;
-    CUDA_ERROR_FATAL( cudaGetDeviceProperties( &deviceProp, currentDeviceIndex ) );
+    CUDA_CHECK( cudaGetDeviceProperties( &deviceProp, currentDeviceIndex ) );
 
     double bytesPerSecond =
         ( ( /* KHz -> Hertz */ deviceProp.memoryClockRate * 1000.0 ) *
@@ -50,7 +50,7 @@ inline double CudaComputeEffectiveMemoryBandwidth( size_t i_numBytesRead, size_t
 inline void CudaPrintDevicePerformanceAttributes()
 {
     int currentDeviceIndex;
-    CUDA_ERROR_FATAL( cudaGetDevice( &currentDeviceIndex ) );
+    CUDA_CHECK( cudaGetDevice( &currentDeviceIndex ) );
     cudaDeviceProp deviceProp;
     cudaGetDeviceProperties( &deviceProp, currentDeviceIndex );
     printf( "\n[CUDA Device %d: \"%s\"]\n", currentDeviceIndex, deviceProp.name );
@@ -91,14 +91,14 @@ inline void CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams,
     for ( size_t i = 0; i < i_numIterations; ++i )
     {
         cudaEvent_t start, stop;
-        CUDA_ERROR_FATAL( cudaEventCreate( &start ) );
-        CUDA_ERROR_FATAL( cudaEventCreate( &stop ) );
+        CUDA_CHECK( cudaEventCreate( &start ) );
+        CUDA_CHECK( cudaEventCreate( &stop ) );
 
         // Start timer.
-        CUDA_ERROR_FATAL( cudaEventRecord( start, 0 ) );
+        CUDA_CHECK( cudaEventRecord( start, 0 ) );
 
         // Execute kernel.
-        CUDA_ERROR_FATAL( cudaLaunchKernel( i_kernelParams.kernel,
+        CUDA_CHECK( cudaLaunchKernel( i_kernelParams.kernel,
                                             i_kernelParams.grid,
                                             i_kernelParams.block,
                                             i_kernelParams.args.data(),
@@ -106,10 +106,10 @@ inline void CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams,
                                             nullptr ) );
 
         // Stop timer, and get elapsed time in milliseconds.
-        CUDA_ERROR_FATAL( cudaEventRecord( stop, 0 ) );
-        CUDA_ERROR_FATAL( cudaEventSynchronize( stop ) );
+        CUDA_CHECK( cudaEventRecord( stop, 0 ) );
+        CUDA_CHECK( cudaEventSynchronize( stop ) );
         float elapsedMs;
-        CUDA_ERROR_FATAL( cudaEventElapsedTime( &elapsedMs, start, stop ) );
+        CUDA_CHECK( cudaEventElapsedTime( &elapsedMs, start, stop ) );
 
         // Update total, min, & max elapsed times.
         totalElapsed += elapsedMs;

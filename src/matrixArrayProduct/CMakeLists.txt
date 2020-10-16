@@ -1,9 +1,8 @@
-cpp_executable(
-    cudaMatrixArrayProduct
+cpp_executable(${EXECUTABLE_PREFIX}_matrixArrayProduct
 
     LIBRARIES
         CUDA::cudart
-        cubase
+        cudaTools
         gm
         cxxopts
 
