@@ -99,11 +99,11 @@ inline void CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams,
 
         // Execute kernel.
         CUDA_CHECK( cudaLaunchKernel( i_kernelParams.kernel,
-                                            i_kernelParams.grid,
-                                            i_kernelParams.block,
-                                            i_kernelParams.args.data(),
-                                            0,
-                                            nullptr ) );
+                                      i_kernelParams.grid,
+                                      i_kernelParams.block,
+                                      i_kernelParams.args.data(),
+                                      0,
+                                      nullptr ) );
 
         // Stop timer, and get elapsed time in milliseconds.
         CUDA_CHECK( cudaEventRecord( stop, 0 ) );
