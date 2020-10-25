@@ -1,1 +1,1 @@
-find_package(CUDAToolkit 10.0)
+find_package(CUDAToolkit 11.0)

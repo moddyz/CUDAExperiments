@@ -14,7 +14,7 @@ Sandbox for experiments with NVIDIA's CUDA API.
 The following dependencies are mandatory:
 - C++ compiler (C++17)
 - [CMake](https://cmake.org/documentation/) (>=3.12)
-- [CUDA](https://developer.nvidia.com/cuda-toolkit) (>=10)
+- [CUDA](https://developer.nvidia.com/cuda-toolkit) (>=11)
 
 ### Building
 
