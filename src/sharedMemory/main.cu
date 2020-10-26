@@ -61,4 +61,8 @@ int main( int i_argc, char** i_argv )
     {
         printf( "hostArray[ %i ] = %f\n", i, hostArray[ i ] );
     }
+
+    // Free memory
+    free( hostArray );
+    cudaFree( deviceArray );
 }

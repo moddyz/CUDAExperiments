@@ -98,4 +98,13 @@ int main( int i_argc, char** i_argv )
     // Download computed matrices, and verify against CPU results.
     CUDA_CHECK( cudaMemcpy( /*dst*/ matricesC, /*src*/ matricesCDevice, numBytes, cudaMemcpyDeviceToHost ) );
     CheckMatrixArrays( matricesC, matricesRef, arraySize );
+
+    // Free allocated resources
+    free( matricesA );
+    free( matricesB );
+    free( matricesC );
+    free( matricesRef );
+    CUDA_CHECK( cudaFree( matricesADevice ) );
+    CUDA_CHECK( cudaFree( matricesBDevice ) );
+    CUDA_CHECK( cudaFree( matricesCDevice ) );
 }

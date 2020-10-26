@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include <cudaTools/error.h>
+
 __global__ void MyKernel( size_t i_pitch, int i_numCols, int i_numRows, float* o_array )
 {
     for ( int rowIndex = 0; rowIndex < i_numRows; ++rowIndex )
@@ -27,4 +29,7 @@ int main( int i_argc, char** i_argv )
 
     MyKernel<<< 1, 1 >>>( pitch, numCols, numRows, array );
     cudaDeviceSynchronize();
+    
+    // Free allocated resources.
+    CUDA_CHECK( cudaFree( array ) );
 }
