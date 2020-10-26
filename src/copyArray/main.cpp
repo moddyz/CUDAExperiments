@@ -15,9 +15,9 @@ int main( int i_argc, char** i_argv )
 {
     // Parse command line arguments.
     cxxopts::Options options( "cudaCopyArray", "Baseline test for a simple array copy kernel." );
-    options.add_options()( "n,arraySize", "Size of array.", cxxopts::value< int >()->default_value( "100000" ) );
+    options.add_options()( "n,arraySize", "Size of array.", cxxopts::value<int>()->default_value( "100000" ) );
     auto result    = options.parse( i_argc, i_argv );
-    int  arraySize = result[ "arraySize" ].as< int >();
+    int  arraySize = result[ "arraySize" ].as<int>();
 
     // Compute amount of memory to allocate.
     size_t numBytes = arraySize * sizeof( float );
@@ -43,7 +43,7 @@ int main( int i_argc, char** i_argv )
     {
         CudaKernelLaunchParams params;
         params.name    = "CopyArray";
-        params.kernel  = ( void* ) CopyArray< float >;
+        params.kernel  = ( void* ) CopyArray<float>;
         params.block.x = 256;
         params.grid.x  = ( arraySize + params.block.x - 1 ) / params.block.x;
         params.args    = {&arraySize, &arrayADevice, &arrayBDevice};

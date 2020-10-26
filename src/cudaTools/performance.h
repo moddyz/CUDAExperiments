@@ -63,11 +63,11 @@ inline void CudaPrintDevicePerformanceAttributes()
 /// Stores parameters required launch a CUDA kernel.
 struct CudaKernelLaunchParams
 {
-    const char*          name   = nullptr; /// Name of the kernel.
-    void*                kernel = nullptr; /// Pointer to the kernel function.
-    std::vector< void* > args;             /// Args the arguments to the kernel function.
-    dim3                 grid;             /// The block launch dimensions.
-    dim3                 block;            /// The thread launch dimensions.
+    const char*        name   = nullptr; /// Name of the kernel.
+    void*              kernel = nullptr; /// Pointer to the kernel function.
+    std::vector<void*> args;             /// Args the arguments to the kernel function.
+    dim3               grid;             /// The block launch dimensions.
+    dim3               block;            /// The thread launch dimensions.
 };
 
 /// \class CudaTimer
@@ -128,8 +128,8 @@ inline void CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams,
                                  size_t                  i_numIterations = 100 )
 {
     double totalElapsed = 0.0;
-    double minElapsed   = std::numeric_limits< double >::max();
-    double maxElapsed   = std::numeric_limits< double >::min();
+    double minElapsed   = std::numeric_limits<double>::max();
+    double maxElapsed   = std::numeric_limits<double>::min();
 
     // Create events for timings.
     for ( size_t i = 0; i < i_numIterations; ++i )

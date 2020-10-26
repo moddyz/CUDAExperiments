@@ -22,7 +22,7 @@ void CudaCheckError( cudaError_t i_error, const char* i_function, const char* i_
                  "CUDA error at %s:%d code=%d(%s) \"%s\" \n",
                  i_file,
                  i_line,
-                 static_cast< unsigned int >( i_error ),
+                 static_cast<unsigned int>( i_error ),
                  cudaGetErrorName( i_error ),
                  i_function );
         exit( EXIT_FAILURE );

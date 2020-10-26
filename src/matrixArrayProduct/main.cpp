@@ -47,9 +47,9 @@ int main( int i_argc, char** i_argv )
     // Parse command line arguments.
     cxxopts::Options options( "cudaMatrixArrayOps",
                               "Testing various implementations of 4 by 4 matrix array operations." );
-    options.add_options()( "n,arraySize", "Size of matrix array.", cxxopts::value< int >()->default_value( "10000" ) );
+    options.add_options()( "n,arraySize", "Size of matrix array.", cxxopts::value<int>()->default_value( "10000" ) );
     auto result    = options.parse( i_argc, i_argv );
-    int  arraySize = result[ "arraySize" ].as< int >();
+    int  arraySize = result[ "arraySize" ].as<int>();
 
     // Compute amount of memory to allocate.
     size_t numBytes = arraySize * sizeof( gm::Mat4f );
