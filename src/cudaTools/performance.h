@@ -70,6 +70,50 @@ struct CudaKernelLaunchParams
     dim3                 block;            /// The thread launch dimensions.
 };
 
+/// \class CudaTimer
+///
+/// A simple CUDA timer using cuda events.  Follows the RAII pattern.
+class CudaTimer
+{
+public:
+    /// Default constructor.
+    ///
+    /// The timer starts on construction.
+    CudaTimer()
+    {
+        // Initialize events.
+        CUDA_CHECK( cudaEventCreate( &m_start ) );
+        CUDA_CHECK( cudaEventCreate( &m_stop ) );
+
+        // Start timer.
+        CUDA_CHECK( cudaEventRecord( m_start, 0 ) );
+    }
+
+    /// Stop the timer and return elapsed time.
+    ///
+    /// \return The elapsed time in milliseconds.
+    inline float Stop()
+    {
+        // Stop timer, and get elapsed time in milliseconds.
+        CUDA_CHECK( cudaEventRecord( m_stop, 0 ) );
+        CUDA_CHECK( cudaEventSynchronize( m_stop ) );
+        float elapsedMs;
+        CUDA_CHECK( cudaEventElapsedTime( &elapsedMs, m_start, m_stop ) );
+        return elapsedMs;
+    }
+
+    ~CudaTimer()
+    {
+        // Destroy the eve
+        CUDA_CHECK( cudaEventDestroy( m_start ) );
+        CUDA_CHECK( cudaEventDestroy( m_stop ) );
+    }
+
+private:
+    cudaEvent_t m_start;
+    cudaEvent_t m_stop;
+};
+
 /// Execute a kernel benchmark.
 /// The kernel is timed, and the effective memory bandwidth is computed.
 /// Results are printed to stdout.
@@ -90,12 +134,7 @@ inline void CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams,
     // Create events for timings.
     for ( size_t i = 0; i < i_numIterations; ++i )
     {
-        cudaEvent_t start, stop;
-        CUDA_CHECK( cudaEventCreate( &start ) );
-        CUDA_CHECK( cudaEventCreate( &stop ) );
-
-        // Start timer.
-        CUDA_CHECK( cudaEventRecord( start, 0 ) );
+        CudaTimer timer;
 
         // Execute kernel.
         CUDA_CHECK( cudaLaunchKernel( i_kernelParams.kernel,
@@ -105,11 +144,7 @@ inline void CudaKernelBenchmark( CudaKernelLaunchParams& i_kernelParams,
                                       0,
                                       nullptr ) );
 
-        // Stop timer, and get elapsed time in milliseconds.
-        CUDA_CHECK( cudaEventRecord( stop, 0 ) );
-        CUDA_CHECK( cudaEventSynchronize( stop ) );
-        float elapsedMs;
-        CUDA_CHECK( cudaEventElapsedTime( &elapsedMs, start, stop ) );
+        float elapsedMs = timer.Stop();
 
         // Update total, min, & max elapsed times.
         totalElapsed += elapsedMs;
