@@ -4,7 +4,7 @@
 
 #include <cuda_runtime.h>
 
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 
 /// Utility program for querying available CUDA devices, and their respective properties.
 

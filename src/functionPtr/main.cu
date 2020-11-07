@@ -1,7 +1,7 @@
 // A simple example of passing a device function pointer into a kernel for execution.
 
 #include <cassert>
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 #include <stdio.h>
 
 // Fixed number of threads per block.

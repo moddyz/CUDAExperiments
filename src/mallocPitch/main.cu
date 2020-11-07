@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 
 __global__ void MyKernel( size_t i_pitch, int i_numCols, int i_numRows, float* o_array )
 {

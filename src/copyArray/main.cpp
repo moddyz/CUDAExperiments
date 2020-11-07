@@ -5,7 +5,7 @@
 #include "copyArray.h"
 
 // Local tools.
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 #include <cudaTools/performance.h>
 
 // Thirdparty.

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <cassert>
 
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 
 __device__ float deviceValue;
 

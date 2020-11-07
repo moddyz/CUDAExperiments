@@ -1,7 +1,7 @@
 #include <cassert>
 #include <stdio.h>
 
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 #include <cudaTools/performance.h>
 
 // Fixed number of threads per block.

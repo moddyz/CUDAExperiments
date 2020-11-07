@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 
 int main( int i_argc, char** i_argv )
 {

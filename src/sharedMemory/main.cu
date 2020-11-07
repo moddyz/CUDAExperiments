@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 
 static const int THREADS_PER_BLOCK = 32;
 

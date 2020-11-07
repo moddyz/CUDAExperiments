@@ -4,7 +4,7 @@
 ///
 /// A set tools for computing performance metrics in CUDA programming.
 
-#include <cudaTools/error.h>
+#include <cudaTools/diagnostic.h>
 
 #include <limits>
 #include <vector>
