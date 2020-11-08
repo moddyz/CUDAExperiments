@@ -10,11 +10,11 @@
 
 /// \macro CUDA_CHECK
 ///
-/// Check the error status.  On non-success, log to stderr and exit the program.
+/// Check the error status.  On non-success, log to stderr.
 #define CUDA_CHECK( val ) CudaCheckError( ( val ), #val, __FILE__, __LINE__ )
 
 /// Not intended to be used directly - use \ref CUDA_CHECK.
-cudaError_t CudaCheckError( cudaError_t i_error, const char* i_function, const char* i_file, int i_line )
+bool CudaCheckError( cudaError_t i_error, const char* i_function, const char* i_file, int i_line )
 {
     if ( i_error != cudaSuccess )
     {
@@ -25,8 +25,10 @@ cudaError_t CudaCheckError( cudaError_t i_error, const char* i_function, const c
                  static_cast<unsigned int>( i_error ),
                  cudaGetErrorName( i_error ),
                  i_function );
-        return i_error;
+        return false;
     }
+
+    return true;
 }
 
 /// \def ASSERT( expr )
